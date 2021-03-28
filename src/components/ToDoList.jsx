@@ -10,23 +10,27 @@ import {
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 
-const ToDoList = () => {
+const ToDoList = ({ todoList, onPressDelete }) => {
   return (
     <div>
       <h1> Your TODO's</h1>
       <div>
         <List>
-          <ListItem>
-            <ListItemText primary="TODO" />
-            <ListItemSecondaryAction>
-              <IconButton edge="end" aria-label="edit">
-                <EditIcon />
-              </IconButton>
-              <IconButton edge="end" aria-label="delete">
-                <DeleteIcon />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
+          {todoList.map((oTodo) => {
+            const { id, text } = oTodo;
+            return (<ListItem key={id}>
+              <ListItemText primary={text} />
+              <ListItemSecondaryAction>
+                <IconButton edge="end" aria-label="edit">
+                  <EditIcon />
+                </IconButton>
+                <IconButton edge="end" aria-label="delete" onClick={() => onPressDelete(id)}>
+                  <DeleteIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>)
+          })}
+
         </List>
       </div>
     </div>
