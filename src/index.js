@@ -1,10 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-//import App from "./App";
-import { createStore } from "redux";
-import AddTodos from "./components/AddTodos";
-import ToDoList from "./components/ToDoList";
+import App from "./App";
+import { Provider } from "react-redux";
+import { store } from "./react-redux/store";
+
+//import { createStore } from "redux";
+//import AddTodos from "./components/AddTodos";
+//import ToDoList from "./components/ToDoList";
+/**
+ * REDUX IMPLEMENTATION
 let nextTodoId = 0;
 
 // Reducer Function 
@@ -51,4 +56,13 @@ const render = () => {
 
 store.subscribe(render);
 render();
+*/
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById("root")
+);
 
