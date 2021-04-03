@@ -19,8 +19,9 @@ const ToDoList = () => {
 
   //console.log(todoList);
   return (
-    <div>
+    <div className="list-container">
       <h2> Your TODO's</h2>
+      <div className="line"></div>
       <div>
         <List>
           {todoList.map((oTodo, index) => {
