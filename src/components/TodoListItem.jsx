@@ -9,7 +9,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import UpdateIcon from '@material-ui/icons/Update';
 import { useState } from 'react';
-import { deleteTodo, updateTodo } from "../react-redux/action";
+import { deleteTodo, updateTodo, showAlert } from "../react-redux/action";
 import { useDispatch } from "react-redux";
 
 const TodoListItem = ({ todo }) => {
@@ -25,6 +25,10 @@ const TodoListItem = ({ todo }) => {
                 text: textUpdate
             }
             dispatch(updateTodo(updatedTodo));
+            dispatch(showAlert({
+                type: 'success',
+                msg: "Todo Edited..."
+            }));
         }
         setEdit(!edit);
     }

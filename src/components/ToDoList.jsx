@@ -8,14 +8,11 @@ import TodoListItem from "./TodoListItem";
  * useSelector accepts a single function, which we call a selector function. 
  * A selector is a function that takes the entire Redux store state as its argument, reads some value from the state, and returns that result.
  */
-import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const ToDoList = () => {
 
   const todoList = useSelector(state => state);
-
-  const dispatch = useDispatch();
 
   //console.log(todoList);
   return (
@@ -24,7 +21,7 @@ const ToDoList = () => {
       <div className="line"></div>
       <div>
         <List>
-          {todoList.map((oTodo, index) => {
+          {todoList.todos.map((oTodo, index) => {
             return <TodoListItem key={index} todo={oTodo} />
           })}
 

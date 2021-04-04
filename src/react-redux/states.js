@@ -7,4 +7,4 @@ export let todos = [{
 }, {
     id: 3,
     text: "Learn React-redux"
-}]
+}];

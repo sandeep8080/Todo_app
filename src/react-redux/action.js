@@ -24,3 +24,16 @@ export const updateTodo = (todo) => {
         payload: todo
     }
 };
+
+export const showAlert = (alert) => {
+    return {
+        type: "SHOW_ALERT",
+        payload: alert
+    }
+};
+
+export const hideAlert = () => {
+    return {
+        type: "HIDE_ALERT",
+    }
+};

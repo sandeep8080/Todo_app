@@ -1,7 +1,9 @@
 import { todos } from "./states";
+import { combineReducers } from "redux";
 let nextTodoId = 10;
 
-export const reducer = (state = todos, actions) => {
+// REDUCER FUNCTION  to handle todos
+const todoReducer = (state = todos, actions) => {
     let newTodo;
     switch (actions.type) {
         case "ADD_TODO":
@@ -37,5 +39,33 @@ export const reducer = (state = todos, actions) => {
         default:
             return state;
 
+    };
+};
+// REDUCER TO HANDLE ALERT Visibility
+const handleAlert = (state = {}, actions) => {
+    switch (actions.type) {
+        case "SHOW_ALERT":
+            const { msg, type } = actions.payload;
+            console.log("Show");
+            return {
+                isVisible: true,
+                msg,
+                type
+            };
+        case "HIDE_ALERT":
+            console.log("Hide");
+            return {
+                isVisible: false,
+                msg: "",
+                type: ""
+            };
+        default:
+            return state;
     }
-}
+};
+
+// Global Reducer Function
+export const reducer = combineReducers({
+    todos: todoReducer,
+    alertVisibility: handleAlert
+});

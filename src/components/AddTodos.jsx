@@ -3,33 +3,28 @@ import Alert from "./Alert";
 import { useState } from 'react';
 import { TextField, Button } from "@material-ui/core";
 import SaveIcon from "@material-ui/icons/Save";
-import { addTodo } from "../react-redux/action";
-import { useDispatch } from "react-redux";
+import { addTodo, showAlert, hideAlert } from "../react-redux/action";
+import { useDispatch, useSelector } from "react-redux";
 
 const AddTodos = () => {
   const dispatch = useDispatch();
   const [inputText, setInputText] = useState('');
-  const [alert, setAlert] = useState({
-    msg: '',
-    isVisible: false,
-    type: ''
-  });
+  const oAlert = useSelector(({ alertVisibility }) => alertVisibility);
 
   const handleAddTodo = () => {
     if (inputText) {
       dispatch(addTodo(inputText));
-      handleAlert(true, "Todo added...", 'success');
+      dispatch(showAlert({
+        type: 'success',
+        msg: 'Todo added...'
+      }));
     } else {
-      handleAlert(true, 'Enter a valid Todo..', 'error');
+      dispatch(showAlert({
+        type: 'error',
+        msg: 'Enter a valid Todo..'
+      }));
     }
     setInputText('');
-  };
-
-  /**
-   * Function to handle Alert component rendering 
-   */
-  const handleAlert = (isVisible = false, msg = "", type = "") => {
-    setAlert({ isVisible, type, msg });
   };
 
   //console.log(inputText);
@@ -45,7 +40,7 @@ const AddTodos = () => {
           onChange={(e) => setInputText(e.target.value)}
           autoFocus={true}
           fullWidth={true}
-          placeholder="Enter a new To-Do" />
+          placeholder="Enter a new To-Do..." />
         <Button
           className="save-btn"
           variant="contained"
@@ -57,7 +52,7 @@ const AddTodos = () => {
           Save
       </Button>
       </div >
-      {alert.isVisible && <Alert {...alert} removeAlert={handleAlert} />}
+      {oAlert.isVisible && <Alert {...oAlert} />}
     </>
 
   );
