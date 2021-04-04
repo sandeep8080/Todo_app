@@ -10,7 +10,8 @@ export const reducer = (state = todos, actions) => {
                 text: actions.payload
             }
             return [...state,
-                newTodo];
+                newTodo
+            ];
             break;
         case "DELETE_TODO":
             newTodo = state.filter(({ id }) => id !== actions.payload);
@@ -19,12 +20,16 @@ export const reducer = (state = todos, actions) => {
             break;
         case "UPDATE_TODO":
             const { id, text } = actions.payload;
-            // TODO: Need to check the why mutation is happening with the prev state
             newTodo = state.map((todo) => {
-                if (todo.id === id) {
-                    todo.text = text;
+                // Avoiding Object mutation
+                const oTodo = {
+                    id: todo.id,
+                    text: todo.text
+                };
+                if (oTodo.id === id) {
+                    oTodo.text = text;
                 }
-                return todo;
+                return oTodo;
             });
             console.log(state, newTodo);
             return newTodo;
