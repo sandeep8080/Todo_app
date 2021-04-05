@@ -14,12 +14,10 @@ const todoReducer = (state = todos, actions) => {
             return [...state,
                 newTodo
             ];
-            break;
         case "DELETE_TODO":
             newTodo = state.filter(({ id }) => id !== actions.payload);
             console.log(state, newTodo);
             return newTodo;
-            break;
         case "UPDATE_TODO":
             const { id, text } = actions.payload;
             newTodo = state.map((todo) => {
@@ -35,7 +33,6 @@ const todoReducer = (state = todos, actions) => {
             });
             console.log(state, newTodo);
             return newTodo;
-            break;
         default:
             return state;
 

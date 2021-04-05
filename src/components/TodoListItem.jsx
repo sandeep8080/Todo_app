@@ -18,8 +18,8 @@ const TodoListItem = ({ todo }) => {
     const [edit, setEdit] = useState(false);
     const [textUpdate, setTextUpdate] = useState(text);
 
-    const handleEditPress = (id) => {
-        if (edit) {
+    const handleEditPress = (id, text) => {
+        if (edit && (text !== textUpdate)) {
             const updatedTodo = {
                 id: id,
                 text: textUpdate
@@ -31,18 +31,24 @@ const TodoListItem = ({ todo }) => {
             }));
         }
         setEdit(!edit);
-    }
+    };
+
+    const handleDeleteTodo = (id) => {
+        dispatch(deleteTodo(id));
+        dispatch(showAlert({
+            type: 'error',
+            msg: "Todo Deleted..."
+        }))
+    };
     return (<ListItem key={id}>
         {edit ? <TextField value={textUpdate} onChange={(e) => setTextUpdate(e.target.value)} /> : <ListItemText primary={text} />}
         <ListItemSecondaryAction>
             <IconButton edge="end" aria-label="edit"
-                onClick={() => handleEditPress(id)}>
+                onClick={() => handleEditPress(id, text)}>
                 {edit ? <UpdateIcon /> : <EditIcon />}
             </IconButton>
             <IconButton edge="end" aria-label="delete"
-                onClick={() => {
-                    dispatch(deleteTodo(id));
-                }}
+                onClick={() => handleDeleteTodo(id)}
             >
                 <DeleteIcon />
             </IconButton>
